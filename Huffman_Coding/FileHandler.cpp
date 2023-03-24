@@ -27,33 +27,17 @@ FileHandler::FileHandler(int argc, char* argv[])
 		}
 		else if (argv[i] == std::string("-m"))
 		{
-			if (((i + 1) < argc) && (argv[i+1] == std::string("i") || argv[i+1] == std::string("o")))
+			if (((i + 1) < argc) && (argv[i+1] == std::string("e") || argv[i+1] == std::string("d")))
 			{
-				if (argv[++i] == "i")
+				if (argv[++i] == std::string("e"))
 				{
-					mode = INPUT;
+					mode = ENCODE;
 				}
 				else
 				{
-					mode = OUTPUT;
+					mode = DECODE;
 				}
 			}
 		}	
 	}
-
-	if (checkInputParams())
-	{
-		std::cout << "Wejscie: " << inputFilePath <<" Wyjscie: " << outputFilePath << " Slownik: " << dictionaryPath 
-			<< " Tryb: " << mode;
-	}
-}
-
-bool FileHandler::checkInputParams()
-{
-	if (inputFilePath == "" || outputFilePath == "" || dictionaryPath == "" || mode == NONE)
-	{
-		std::cout << "The input parameters are invalid\n";
-		return false;
-	}
-	return true;
 }

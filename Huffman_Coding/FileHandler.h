@@ -2,12 +2,14 @@
 #include <iostream>
 #include <string>
 
-enum Mode{NONE ,INPUT, OUTPUT};
+class Huffman;
+
+enum Mode{NONE ,ENCODE, DECODE};
 
 class FileHandler
 {
 public:
-	FileHandler() = delete;
+	FileHandler() = default;
 	FileHandler(int argc, char* argv[]);
 
 private:
@@ -16,6 +18,7 @@ private:
 	std::string dictionaryPath{};
 	Mode mode = NONE;
 
-	bool checkInputParams();
+	friend class Huffman;
+
 };
 

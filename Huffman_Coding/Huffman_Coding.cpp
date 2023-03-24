@@ -1,8 +1,8 @@
-#include "FileHandler.h"
+#include "Huffman.h"
 
 int main(int argc, char* argv[])
-{
-    FileHandler fileHandler(argc, argv);
+{ 
+    Huffman(argc, argv);
 
     system("pause");
 }

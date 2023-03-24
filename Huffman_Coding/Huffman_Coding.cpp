@@ -1,7 +1,9 @@
-#include <iostream>
+#include "FileHandler.h"
 
-int main()
+int main(int argc, char* argv[])
 {
-    std::cout << "Hello World!\n";
+    FileHandler fileHandler(argc, argv);
+
+    system("pause");
 }
 

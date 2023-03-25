@@ -38,6 +38,23 @@ void Huffman::huffmanEncoding()
 	buildHuffmanTree();
 }
 
+void Huffman::makeHuffmanCode(Node* node, std::string code, std::unordered_map<char, std::string> huffmanCode)
+{
+	if (node == nullptr)
+		return;
+
+	if (isLeaf(node))
+		huffmanCode[node->getChar()] = code;
+
+	makeHuffmanCode(node->getLeftNode(), code + "0", huffmanCode);
+	makeHuffmanCode(node->getRightNode(), code + "1", huffmanCode);
+}
+
+bool Huffman::isLeaf(Node* node)
+{
+	return node->getLeftNode() == nullptr && node->getRightNode() == nullptr;
+}
+
 void Huffman::calculateAmountOfCharacters()
 {
 	for (auto character : dataFromFile)
@@ -64,6 +81,8 @@ void Huffman::buildHuffmanTree()
 
 		sortedQueueOfNodes.push(makeNode('/0', sum, left, right));
 	}
+
+	root = sortedQueueOfNodes.top();
 }
 
 bool Huffman::gatherDataFromFile(std::string path)

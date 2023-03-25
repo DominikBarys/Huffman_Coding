@@ -6,6 +6,12 @@ Huffman::Huffman(int argc, char* argv[])
 	checkMode();
 }
 
+Node* Huffman::makeNode(char character, int amount, Node* left, Node* right)
+{
+	Node* node = new Node(character, amount, left, right);
+	return node;
+}
+
 void Huffman::checkMode()
 {
 	if (fileHandler.mode == ENCODE)
@@ -28,11 +34,36 @@ void Huffman::huffmanEncoding()
 		return;
 
 	calculateAmountOfCharacters();
+
+	buildHuffmanTree();
 }
 
 void Huffman::calculateAmountOfCharacters()
 {
+	for (auto character : dataFromFile)
+	{
+		amountOfCharacters[character]++;
+	}
+}
 
+void Huffman::buildHuffmanTree()
+{
+	for (auto pair : amountOfCharacters)
+	{
+		sortedQueueOfNodes.push(makeNode(pair.first, pair.second, nullptr, nullptr));
+	}
+
+	while (sortedQueueOfNodes.size() != 1)
+	{
+		Node* left = sortedQueueOfNodes.top();
+		sortedQueueOfNodes.pop();
+		Node* right = sortedQueueOfNodes.top();
+		sortedQueueOfNodes.pop();
+
+		int sum = left->getAmount() + right->getAmount();
+
+		sortedQueueOfNodes.push(makeNode('/0', sum, left, right));
+	}
 }
 
 bool Huffman::gatherDataFromFile(std::string path)

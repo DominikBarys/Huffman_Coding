@@ -19,6 +19,5 @@ private:
 	Mode mode = NONE;
 
 	friend class Huffman;
-
 };
 

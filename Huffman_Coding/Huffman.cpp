@@ -86,16 +86,16 @@ void Huffman::calculateAmountOfCharacters()
 {
 	for (auto character : dataFromFile)
 	{
-		amountOfCharacters[character]++;
+		//calculateAmountOfCharacters[character]++;
 	}
 }
 
 void Huffman::buildHuffmanTree()
 {
-	for (auto pair : amountOfCharacters)
+	/*for (auto pair : amountOfCharacters)
 	{
 		sortedQueueOfNodes.push(makeNode(pair.first, pair.second, nullptr, nullptr));
-	}
+	}*/
 
 	while (sortedQueueOfNodes.size() != 1)
 	{

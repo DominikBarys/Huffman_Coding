@@ -7,6 +7,8 @@
 #include "FileHandler.h"
 #include "Node.h"
 
+//TO DO Support for different types of files, not only files like txt, bmp or jpeg
+
 class Huffman
 {
 public:

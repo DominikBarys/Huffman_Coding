@@ -5,8 +5,7 @@
 
 int main(int argc, char* argv[])
 { 
-    Huffman(argc, argv);
+    Huffman huffman(argc, argv);
 
     system("pause");
 }
-

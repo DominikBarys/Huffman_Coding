@@ -2,6 +2,8 @@
 
 Huffman::Huffman(int argc, char* argv[])
 {
+	std::cout << fileHandler.directoryPath << std::endl;
+
 	fileHandler = FileHandler(argc, argv);
 	checkMode();
 }

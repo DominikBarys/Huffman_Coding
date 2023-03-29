@@ -51,3 +51,11 @@ Node& Node::operator=(Node&& another) noexcept
     }
     return *this;
 }
+
+Node::~Node()
+{
+    if (right != nullptr)
+        delete right;
+    if (left != nullptr)
+        delete left;
+}

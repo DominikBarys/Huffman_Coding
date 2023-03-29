@@ -1,8 +1,5 @@
 #include <chrono>
-#include <Windows.h>
 #include "Huffman.h"
-
-//TO DO Add thread to show user in terminal progress of program
 
 int main(int argc, char* argv[])
 { 

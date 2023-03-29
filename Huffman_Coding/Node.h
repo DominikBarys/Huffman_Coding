@@ -18,33 +18,15 @@ public:
 
 	Node& operator=(Node&& another) noexcept;
 
-	~Node()
-	{
-		if(right != nullptr)
-			delete right;
-		if(left != nullptr)
-			delete left;
-	}
+	~Node();
 
-	char getChar() const
-	{
-		return character;
-	}
+	char getChar() const { return character; }
 
-	int getAmount() const
-	{
-		return amount;
-	}
+	int getAmount() const { return amount; }
 
-	Node* getLeftNode() const
-	{
-		return left;
-	}
+	Node* getLeftNode() const { return left; }
 
-	Node* getRightNode() const
-	{
-		return right;
-	}
+	Node* getRightNode() const { return right; }
 
 private:
 	char character{};
@@ -55,8 +37,5 @@ private:
 
 struct CompareNodes
 {
-	bool operator()(Node* l, Node* r)
-	{
-		return l->getAmount() > r->getAmount();
-	}
+	bool operator()(Node* l, Node* r) { return l->getAmount() > r->getAmount(); }
 };

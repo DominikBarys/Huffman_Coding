@@ -4,8 +4,10 @@
 #include <queue>
 #include <vector>
 #include <bitset>
+#include <thread>
 #include "FileHandler.h"
 #include "Node.h"
+#include "UserInterface.h"
 
 //TO DO Support for different types of files, not only files like txt, bmp or jpeg
 
@@ -17,6 +19,9 @@ public:
 	~Huffman();
 
 private:
+
+	std::vector<std::thread> uiThreads;
+
 	const std::string EMPTY_STRING = "";
 	FileHandler fileHandler;
 	Node* root = nullptr;
@@ -57,5 +62,8 @@ private:
 	void fromBytesToString();
 	void translateHuffmanCode();
 	void saveDecodedFile(std::string);
+
+	void makeUiThreads();
+	void joinThreads();
 };
 

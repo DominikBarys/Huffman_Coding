@@ -2,6 +2,8 @@
 
 Huffman::Huffman(int argc, char* argv[])
 {
+	makeUiThreads();
+	UserInterface::startOfProgram();
 	fileHandler = FileHandler(argc, argv);
 	checkMode();
 }
@@ -20,21 +22,20 @@ Node* Huffman::makeNode(char character, int amount, Node* left, Node* right)
 
 void Huffman::checkMode()
 {
-	if (fileHandler.mode == ENCODE)
+	switch (fileHandler.mode)
 	{
+	case ENCODE:
 		huffmanEncoding();
-	}
-	else if (fileHandler.mode == DECODE)
-	{
+		break;
+	case DECODE:
 		huffmanDecoding();
-	}
-	else if (fileHandler.mode == NONE)
-	{
+		break;
+	case NONE:
 		std::cout << "The input parameters are invalid\n";
 	}
 }
 
-void Huffman::huffmanEncoding()
+void Huffman::huffmanEncoding() 
 {
 	if (!gatherDataFromFile(fileHandler.inputFilePath))
 		return;
@@ -52,6 +53,12 @@ void Huffman::huffmanEncoding()
 	convertToBytes();
 
 	makeEncodedFile();
+
+	Sleep(50000); /////////////////
+
+	UserInterface::endOfProgram();
+
+	joinThreads();
 }
 
 void Huffman::makeHuffmanCode(Node* node, std::string code, std::unordered_map<char, std::string>& huffmanCode)
@@ -144,7 +151,7 @@ void Huffman::calculateAmountOfCharacters()
 	}
 }
 
-void Huffman::buildHuffmanTree()
+void Huffman::buildHuffmanTree() //progess bar?
 {
 	for (auto pair : amountOfCharacters)
 	{
@@ -181,6 +188,12 @@ void Huffman::huffmanDecoding()
 	translateHuffmanCode();
 
 	saveDecodedFile(fileHandler.outputFilePath);
+
+	Sleep(5000); /////////////////
+
+	UserInterface::endOfProgram();
+
+	joinThreads();
 }
 
 bool Huffman::gatherDataFromFile(std::string path)
@@ -270,7 +283,6 @@ void Huffman::translateHuffmanCode()
 			}
 		}
 	}
-
 }
 
 void Huffman::saveDecodedFile(std::string path)
@@ -279,3 +291,19 @@ void Huffman::saveDecodedFile(std::string path)
 	file << decodedString;
 	file.close();
 }
+
+void Huffman::makeUiThreads()
+{
+	uiThreads.push_back(std::thread(&UserInterface::refreshText));
+	uiThreads.push_back(std::thread(&UserInterface::refreshUI));
+}
+
+void Huffman::joinThreads()
+{
+	for (auto &thread : uiThreads)
+	{
+		thread.join();
+	}
+}
+
+//&Huffman::userInterface.refreshText

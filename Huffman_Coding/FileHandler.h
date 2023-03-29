@@ -4,8 +4,6 @@
 #include <filesystem>
 #include <regex>
 
-//TO DO Handling only names of files by adding to it native directory to program folder
-
 class Huffman;
 
 enum Mode{NONE ,ENCODE, DECODE};

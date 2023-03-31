@@ -26,6 +26,7 @@ private:
 
 	void checkInputParams();
 	void extractParameters(int argc, char* argv[]);
+	std::string setFilepathToResources(std::string path);
 
 	friend class Huffman;
 };

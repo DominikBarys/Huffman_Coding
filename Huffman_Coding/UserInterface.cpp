@@ -5,11 +5,7 @@
  char UserInterface::numberOfDots = 0;
  bool UserInterface::programWorks = false;
 
-void UserInterface::refreshProgress()
-{
-}
-
-void UserInterface::refreshText()
+void UserInterface::refreshWorkInProgress()
 {
 	while (programWorks)
 	{
@@ -39,10 +35,3 @@ void UserInterface::refreshText()
 	}
 }
 
-void UserInterface::refreshUI()
-{
-	while (programWorks)
-	{
-		
-	}
-}

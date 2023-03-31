@@ -8,30 +8,20 @@ FileHandler::FileHandler(int argc, char* argv[])
 
 void FileHandler::checkInputParams()
 {
-	std::filesystem::path currentPath;
-
 	if (!std::regex_search(inputFilePath, ruleForFilepath))
 	{
-		currentPath = directoryPath;
-		currentPath /= inputFilePath;
-		inputFilePath = currentPath.string();
+		inputFilePath = setFilepathToResources(inputFilePath);
 	}
 	if (!std::regex_search(outputFilePath, ruleForFilepath))
 	{
-		currentPath = directoryPath;
-		currentPath /= outputFilePath; 
-		outputFilePath = currentPath.string();
+		outputFilePath = setFilepathToResources(outputFilePath);
 	}
 	if (!std::regex_search(dictionaryPath, ruleForFilepath))
 	{
-		currentPath = directoryPath;
-		currentPath /= dictionaryPath;
-		dictionaryPath = currentPath.string();
+		dictionaryPath = setFilepathToResources(dictionaryPath);
 	}
-
 }
 
-//TO DO using tolower() to better parsing input parameters
 void FileHandler::extractParameters(int argc, char* argv[])
 {
 	for (size_t i = 1; i < argc; i++)
@@ -72,4 +62,16 @@ void FileHandler::extractParameters(int argc, char* argv[])
 			}
 		}
 	}
+}
+
+std::string FileHandler::setFilepathToResources(std::string path)
+{
+	std::filesystem::path currentPath;
+
+	currentPath = directoryPath;
+	currentPath /= "Resources";
+	currentPath /= path;
+	path = currentPath.string();
+
+	return path;
 }

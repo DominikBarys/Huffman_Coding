@@ -2,8 +2,8 @@
 
 Huffman::Huffman(int argc, char* argv[])
 {
-	makeUiThreads();
 	UserInterface::startOfProgram();
+	makeUiThreads();
 	fileHandler = FileHandler(argc, argv);
 	checkMode();
 }
@@ -173,10 +173,10 @@ void Huffman::buildHuffmanTree() //progess bar?
 
 void Huffman::huffmanDecoding()
 {
-	if (!gatherDataFromDictionary(fileHandler.dictionaryPath))
+	if (!gatherDataFromFile(fileHandler.inputFilePath))
 		return;
 
-	if (!gatherDataFromFile(fileHandler.inputFilePath))
+	if (!gatherDataFromDictionary(fileHandler.dictionaryPath))
 		return;
 
 	gatherShiftFromEncodedFile();
@@ -232,7 +232,7 @@ bool Huffman::gatherDataFromDictionary(std::string path)
 	{
 		if (tmp % 2 == 0)
 		{
-			charFromDictionary = tmpChar;//G
+			charFromDictionary = tmpChar;
 		}
 		else
 		{
@@ -247,7 +247,7 @@ bool Huffman::gatherDataFromDictionary(std::string path)
 			}
 				huffmanCodeFromDictionary.push_back(std::make_pair(charFromDictionary, stringFromDictionary));
 		}
-		tmp++; // inkrementacja za ka¿dym odczytem znaku
+		tmp++;
 	}
 
 	file.close();
@@ -306,8 +306,7 @@ void Huffman::saveDecodedFile(std::string path)
 
 void Huffman::makeUiThreads()
 {
-	uiThreads.push_back(std::thread(&UserInterface::refreshText));
-	uiThreads.push_back(std::thread(&UserInterface::refreshUI));
+	uiThreads.push_back(std::thread(&UserInterface::refreshWorkInProgress));
 }
 
 void Huffman::joinThreads()

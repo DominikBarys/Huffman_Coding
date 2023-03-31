@@ -130,6 +130,8 @@
   <ItemGroup>
     <ClCompile Include="FileHandler.cpp" />
     <ClCompile Include="Huffman.cpp" />
+    <ClCompile Include="HuffmanDecoding.cpp" />
+    <ClCompile Include="HuffmanEncoding.cpp" />
     <ClCompile Include="Huffman_Coding.cpp" />
     <ClCompile Include="Node.cpp" />
     <ClCompile Include="UserInterface.cpp" />
@@ -137,6 +139,8 @@
   <ItemGroup>
     <ClInclude Include="FileHandler.h" />
     <ClInclude Include="Huffman.h" />
+    <ClInclude Include="HuffmanDecoding.h" />
+    <ClInclude Include="HuffmanEncoding.h" />
     <ClInclude Include="Node.h" />
     <ClInclude Include="UserInterface.h" />
   </ItemGroup>

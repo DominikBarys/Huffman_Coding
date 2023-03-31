@@ -9,9 +9,7 @@ public:
 	static void endOfProgram() { programWorks = false; }
 	static void startOfProgram() { programWorks = true; }
 
-	static void refreshText();
-	static void refreshProgress();
-	static void refreshUI();
+	static void refreshWorkInProgress();
 
 private:
 

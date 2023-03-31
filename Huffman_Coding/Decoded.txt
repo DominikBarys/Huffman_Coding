@@ -1,0 +1,149 @@
+void initObjects()
+{
+	teapotMatrix = osg::Matrix::translate(0.5, 0.5, 0.5);
+	torusMatrix = osg::Matrix::translate(-0.5, -0.5, 0.5);
+	cubeMatrix = osg::Matrix::translate(0, 0.5, -1);
+}
+
+ROZCIĄGANIE SIĘ SZEŚCIANU
+void updateCube()
+{
+	const float scaleStep = 1.005;
+	static int step = 0;
+	osg::Vec3d pos = cubeMatrix.getTrans();
+
+	cubeMatrix *= osg::Matrix::translate(-pos);
+
+	if (step >= 250)
+	{
+		cubeMatrix *= osg::Matrix::scale(scaleStep, scaleStep, scaleStep);
+	}
+	else
+	{
+		cubeMatrix *= osg::Matrix::scale(1.0 / scaleStep, 1.0 / scaleStep, 1.0 / scaleStep);
+	}
+
+	step++;
+	if (step == 500)
+	{
+		step = 0;
+	}
+	cubeMatrix *= osg::Matrix::translate(pos);
+}
+
+EKSPLOZJA I IMPLOZJA TO JEDEN CHUJ
+
+void updateCube()
+{
+	const float scaleStep = 1.01;
+	static int step = 0;
+	osg::Vec3d pos = cubeMatrix.getTrans();
+
+	if (step == 0)
+	{
+		cubeMatrix = osg::Matrix::translate(0, 0.5, -1);
+	}
+
+	cubeMatrix *= osg::Matrix::translate(-pos);
+
+	step++;
+
+	if (step < 100)
+	{
+		cubeMatrix *= osg::Matrix::scale(scaleStep, scaleStep, scaleStep);
+	}
+	else
+	{
+		step = 0;
+	}
+
+	cubeMatrix *= osg::Matrix::translate(pos);
+}
+
+TORUS ROTACJA WOKÓŁ SZEŚCIANU ORAZ WOKÓŁ WŁASNEJ OSI
+
+void updateTorus()
+{
+	osg::Vec3d pos = torusMatrix.getTrans();
+	osg::Vec3d point = cubeMatrix.getTrans(); // punkt odniesienia
+	static double angle = 270; // w stopniach
+	osg::Vec3d angleVec; //modyfikator zmieniajacy promien okregu (tworzac efekt elipsy)
+	const double step = 1.8; //rozmiar kroku
+
+	angleVec = osg::Vec3d(cos(osg::DegreesToRadians(angle)), 0, 0);
+
+	//obrot wokol wlasnej osi
+	torusMatrix *= osg::Matrix::translate(-pos);
+	torusMatrix *= osg::Matrix::rotate(osg::DegreesToRadians(step), osg::Vec3d(0, 0, 1));
+	torusMatrix *= osg::Matrix::translate(pos);
+
+	//obrot wokol punktu
+	torusMatrix *= osg::Matrix::translate(-point - angleVec); //-angleVec - usun modyfikacje na czas obracania
+	torusMatrix *= osg::Matrix::rotate(osg::DegreesToRadians(step), osg::Vec3d(0, 1, 0));
+	torusMatrix *= osg::Matrix::translate(point); //nie przywracaj angleVec. zaraz zostanie dodana zaktualizowana wartosc
+
+	//zmiana promienia
+	angle = fmod(angle + step, 360);
+	angleVec = osg::Vec3d(cos(osg::DegreesToRadians(angle)), 0, 0);
+	torusMatrix *= osg::Matrix::translate(angleVec);
+}
+
+CZAJNIK ÓSEMKA WOKÓŁ SZEŚCIANU
+
+void updateCube()
+{
+	const float scaleStep = 1.01;
+	static int step = 0;
+	osg::Vec3d pos = cubeMatrix.getTrans();
+
+	if (step == 0)
+	{
+		cubeMatrix = osg::Matrix::translate(0, 0.5, -1);
+	}
+
+	cubeMatrix *= osg::Matrix::translate(-pos);
+
+	step++;
+
+	if (step < 100)
+	{
+		cubeMatrix *= osg::Matrix::scale(scaleStep, scaleStep, scaleStep);
+	}
+	else
+	{
+		step = 0;
+	}
+
+	cubeMatrix *= osg::Matrix::translate(pos);
+}
+
+CZAJNIK SPIRALA?
+
+int teapotCount = 250;
+bool teapotDirection = true;
+const int MAX_COUNT = 500;
+const double step = 2 * 3.14159 / MAX_COUNT;
+void updateTeapot()
+{
+	if (teapotDirection) {
+		teapotMatrix *= osg::Matrix::translate(-1, -1.5, -1);
+		teapotMatrix *= osg::Matrix::rotate(step, osg::Vec3f(0, 0, 1));
+		teapotMatrix *= osg::Matrix::translate(1, 1.5, 1);
+
+		teapotCount++;
+		if (teapotCount == MAX_COUNT) {
+			teapotDirection = false;
+		}
+	}
+	else {
+		teapotMatrix *= osg::Matrix::translate(-1, -0.5, -1);
+		teapotMatrix *= osg::Matrix::rotate(-step, osg::Vec3f(0, 0, 1));
+		teapotMatrix *= osg::Matrix::translate(1, 0.5, 1);
+
+		teapotCount--;
+		if (teapotCount == 0) {
+			teapotDirection = true;
+		}
+	}
+	/*std::cout << teapotCount << " " << teapotDirection << std::endl;*/
+}

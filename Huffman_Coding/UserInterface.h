@@ -20,7 +20,6 @@ private:
 	UserInterface() = delete;
 
 	static std::string defaultText;
-	static std::string currentText;
 	
 	static char numberOfDots;
 

@@ -2,7 +2,6 @@
 
  std::string UserInterface::defaultText = "Work in progress";
  std::string UserInterface::EMPTY_STRING = "      ";
- std::string UserInterface::currentText{};
  char UserInterface::numberOfDots = 0;
  bool UserInterface::programWorks = false;
 

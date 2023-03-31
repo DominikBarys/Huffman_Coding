@@ -54,8 +54,6 @@ void Huffman::huffmanEncoding()
 
 	makeEncodedFile();
 
-	Sleep(50000); /////////////////
-
 	UserInterface::endOfProgram();
 
 	joinThreads();
@@ -80,7 +78,7 @@ bool Huffman::isLeaf(Node* node)
 
 void Huffman::makeDictionary()
 {
-	file.open(fileHandler.dictionaryPath, std::ios::out);
+	file.open(fileHandler.dictionaryPath, std::ios::out | std::ios::binary);
 
 	for (auto pair : huffmanCode)
 	{
@@ -189,8 +187,6 @@ void Huffman::huffmanDecoding()
 
 	saveDecodedFile(fileHandler.outputFilePath);
 
-	Sleep(5000); /////////////////
-
 	UserInterface::endOfProgram();
 
 	joinThreads();
@@ -198,44 +194,60 @@ void Huffman::huffmanDecoding()
 
 bool Huffman::gatherDataFromFile(std::string path)
 {
-	file.open(fileHandler.inputFilePath);
+	file.open(fileHandler.inputFilePath, std::ios::in | std::ios::binary);
 
 	if (!file.good())
 	{
 		std::cout << "File not found\n";
+		file.close();
 		return false;
 	}
 
-	while (std::getline(file, dataFromFile))
-		file.close();
+	char gatheredCHar{};
+
+	while (file.get(gatheredCHar))
+	{
+		dataFromFile += gatheredCHar;
+	}
+
+	file.close();
 
 	return true;
 }
 
 bool Huffman::gatherDataFromDictionary(std::string path)
 {
-	file.open(path, std::ios::in);
-	
+	file.open(path, std::ios::in | std::ios::binary);
+
 	if (!file.good())
 	{
 		return false;
 	}
 
-	int tmp = 1;
-	std::string stringFromDictionary{};
+	int tmp = 0;
+	char tmpChar{};
+	std::string stringFromDictionary;
 
-	while (std::getline(file, dataFromFile))
+	while (file.get(tmpChar))
 	{
-		if (tmp % 2)
+		if (tmp % 2 == 0)
 		{
-			charFromDictionary = dataFromFile[0];
+			charFromDictionary = tmpChar;//G
 		}
 		else
 		{
-			stringFromDictionary = dataFromFile;
-			huffmanCodeFromDictionary.push_back(std::make_pair(charFromDictionary, stringFromDictionary));
+			stringFromDictionary = "";
+			while (file.get(tmpChar))
+			{
+				if (tmpChar == '\n')
+				{
+					break;
+				}
+				stringFromDictionary += tmpChar;
+			}
+				huffmanCodeFromDictionary.push_back(std::make_pair(charFromDictionary, stringFromDictionary));
 		}
-		tmp++;
+		tmp++; // inkrementacja za ka¿dym odczytem znaku
 	}
 
 	file.close();
@@ -305,5 +317,3 @@ void Huffman::joinThreads()
 		thread.join();
 	}
 }
-
-//&Huffman::userInterface.refreshText

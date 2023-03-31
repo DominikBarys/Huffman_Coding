@@ -2,8 +2,34 @@
 
 FileHandler::FileHandler(int argc, char* argv[])
 {
+	UserInterface::startOfProgram();
 	extractParameters(argc, argv);
 	checkInputParams();
+	startProgram(mode);
+}
+
+FileHandler::~FileHandler()
+{
+	UserInterface::endOfProgram();
+
+	if (huffman != nullptr)
+		delete huffman;
+}
+
+void FileHandler::startProgram(Mode mode)
+{
+	switch (mode)
+	{
+	case NONE:
+		std::cout << "Invalid parameters\n";
+		break;
+	case ENCODE:
+		huffman = new HuffmanEncoding(inputFilePath, outputFilePath, dictionaryPath);
+		break;
+	case DECODE:
+		huffman = new HuffmanDecoding(inputFilePath, outputFilePath, dictionaryPath);
+		break;
+	}
 }
 
 void FileHandler::checkInputParams()

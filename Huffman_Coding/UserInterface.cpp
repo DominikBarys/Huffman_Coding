@@ -4,8 +4,24 @@
  std::string UserInterface::EMPTY_STRING = "      ";
  char UserInterface::numberOfDots = 0;
  bool UserInterface::programWorks = false;
+ double UserInterface::timeElapsed = 0;
+ std::chrono::time_point<std::chrono::steady_clock> UserInterface::clockStart{};
+ std::chrono::time_point<std::chrono::steady_clock> UserInterface::clockEnd{};
 
-void UserInterface::refreshWorkInProgress()
+ void UserInterface::startOfProgram()
+ {
+	 clockStart = std::chrono::high_resolution_clock::now();
+	 programWorks = true;
+ }
+
+ void UserInterface::endOfProgram()
+ {
+	 clockEnd = std::chrono::high_resolution_clock::now();
+	 programWorks = false;
+	 showTimeElapsed();
+ }
+
+ void UserInterface::refreshWorkInProgress()
 {
 	while (programWorks)
 	{
@@ -34,4 +50,13 @@ void UserInterface::refreshWorkInProgress()
 		}
 	}
 }
+
+ void UserInterface::showTimeElapsed()
+ {
+	 timeElapsed = timeElapsed = std::chrono::duration_cast<std::chrono::duration<double>>(clockEnd - clockStart).count();
+
+	 system("cls");
+	 std::cout << "The program has finished\n";
+	 std::cout << "Time elapsed: " << std::fixed << std::setprecision(2) << timeElapsed << " seconds\n";
+ }
 

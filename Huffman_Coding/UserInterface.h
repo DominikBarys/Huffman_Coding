@@ -2,25 +2,32 @@
 #include <iostream>
 #include <string>
 #include <Windows.h>
+#include <chrono>
 
 class UserInterface
 {
 public:
-	static void endOfProgram() { programWorks = false; }
-	static void startOfProgram() { programWorks = true; }
+	UserInterface() = delete;
+
+	static void startOfProgram();
+	static void endOfProgram();
 
 	static void refreshWorkInProgress();
+
+	static void showTimeElapsed();
 
 private:
 
 	static std::string EMPTY_STRING;
 
-	UserInterface() = delete;
-
 	static std::string defaultText;
-	
 	static char numberOfDots;
-
 	static bool programWorks;
+
+	static std::chrono::time_point<std::chrono::steady_clock> clockStart;
+	static std::chrono::time_point<std::chrono::steady_clock> clockEnd;
+	static double timeElapsed;
+
+	
 };
 

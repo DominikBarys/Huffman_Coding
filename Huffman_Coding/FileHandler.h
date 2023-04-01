@@ -1,6 +1,4 @@
 #pragma once
-#include <iostream>
-#include <string>
 #include <filesystem>
 #include <regex>
 #include "HuffmanDecoding.h"
@@ -19,10 +17,11 @@ private:
 	std::string inputFilePath{};
 	std::string outputFilePath{};
 	std::string dictionaryPath{};
+
 	Mode mode = NONE;
 	Huffman* huffman;
 
-	std::regex ruleForFilepath{ ".+(?=\\\\)" };
+	const std::regex ruleForFilepath{ ".+(?=\\\\)" };
 
 	std::filesystem::path directoryPath = std::filesystem::current_path();
 

@@ -30,6 +30,8 @@ void HuffmanEncoding::startEncodingSequence()
 	convertToBytes();
 
 	makeEncodedFile();
+
+	UserInterface::endOfProgram();
 }
 
 Node* HuffmanEncoding::makeNode(char character, int amount, Node* left, Node* right)
@@ -47,13 +49,13 @@ void HuffmanEncoding::calculateAmountOfCharacters()
 {
 	for (auto character : dataFromFile)
 	{
-		amountOfCharacters[character]++;
+		amountOfEachCharacter[character]++;
 	}
 }
 
 void HuffmanEncoding::buildHuffmanTree()
 {
-	for (auto pair : amountOfCharacters)
+	for (auto pair : amountOfEachCharacter)
 	{
 		sortedQueueOfNodes.push(makeNode(pair.first, pair.second, nullptr, nullptr));
 	}

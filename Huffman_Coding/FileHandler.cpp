@@ -2,16 +2,17 @@
 
 FileHandler::FileHandler(int argc, char* argv[])
 {
-	UserInterface::startOfProgram();
-	extractParameters(argc, argv);
-	checkInputParams();
-	startProgram(mode);
+	if (argc > 1)
+	{
+		UserInterface::startOfProgram();
+		extractParameters(argc, argv);
+		checkInputParams();
+		startProgram(mode);
+	}
 }
 
 FileHandler::~FileHandler()
 {
-	UserInterface::endOfProgram();
-
 	if (huffman != nullptr)
 		delete huffman;
 }

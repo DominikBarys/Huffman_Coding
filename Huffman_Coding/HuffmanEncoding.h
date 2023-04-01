@@ -1,4 +1,5 @@
 #pragma once
+#include <queue>
 #include "Huffman.h"
 #include "Node.h"
 

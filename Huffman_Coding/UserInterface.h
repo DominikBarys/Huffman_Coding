@@ -27,7 +27,5 @@ private:
 	static std::chrono::time_point<std::chrono::steady_clock> clockStart;
 	static std::chrono::time_point<std::chrono::steady_clock> clockEnd;
 	static double timeElapsed;
-
-	
 };
 

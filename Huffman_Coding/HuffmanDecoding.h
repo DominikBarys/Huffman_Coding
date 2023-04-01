@@ -1,4 +1,5 @@
 #pragma once
+#include <bitset>
 #include "Huffman.h"
 
 class HuffmanDecoding : public Huffman

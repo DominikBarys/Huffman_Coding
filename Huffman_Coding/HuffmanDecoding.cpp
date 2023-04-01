@@ -21,6 +21,8 @@ void HuffmanDecoding::startDecodingSequence()
 	translateHuffmanCode();
 
 	saveDecodedFile(outputFilePath);
+
+	UserInterface::endOfProgram();
 }
 
 bool HuffmanDecoding::gatherDataFromDictionary(std::string path)

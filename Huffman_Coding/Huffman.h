@@ -28,7 +28,7 @@ protected:
 
 private:
 
-	std::vector<std::thread> uiThreads;
+	std::vector<std::thread> uiThreads{};
 
 	void makeUiThreads();
 	void joinThreads();

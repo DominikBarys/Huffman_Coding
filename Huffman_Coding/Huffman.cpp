@@ -8,7 +8,8 @@ Huffman::Huffman(std::string input, std::string output, std::string dictionary)
 
 Huffman::~Huffman()
 {
-	joinThreads();
+	if(uiThreads.size() > 0)
+		joinThreads();
 }
 
 bool Huffman::gatherDataFromFile(std::string path)

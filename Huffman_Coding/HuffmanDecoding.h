@@ -20,9 +20,5 @@ private:
 	void fromBytesToString();
 	void translateHuffmanCode();
 	void saveDecodedFile(std::string);
-
-
-
-
 };
 

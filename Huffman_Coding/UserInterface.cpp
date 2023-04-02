@@ -57,6 +57,11 @@
 
 	 system("cls");
 	 std::cout << "The program has finished\n";
-	 std::cout << "Time elapsed: " << std::fixed << std::setprecision(2) << timeElapsed << " seconds\n";
+	 std::cout << "Time elapsed: " << std::fixed << std::setprecision(3) << timeElapsed << " seconds\n";
+ }
+
+ void UserInterface::invalidInputParameters()
+ {
+	 std::cout << "Input parameters are invalid\n";
  }
 

@@ -16,6 +16,8 @@ public:
 
 	static void showTimeElapsed();
 
+	static void invalidInputParameters();
+
 private:
 
 	static std::string EMPTY_STRING;

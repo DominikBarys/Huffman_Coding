@@ -19,7 +19,7 @@ private:
 	std::string dictionaryPath{};
 
 	Mode mode = NONE;
-	Huffman* huffman;
+	Huffman* huffman = nullptr;
 
 	const std::regex ruleForFilepath{ ".+(?=\\\\)" };
 

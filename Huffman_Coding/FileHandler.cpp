@@ -9,6 +9,8 @@ FileHandler::FileHandler(int argc, char* argv[])
 		checkInputParams();
 		startProgram(mode);
 	}
+	else
+		UserInterface::invalidInputParameters();
 }
 
 FileHandler::~FileHandler()
@@ -22,7 +24,7 @@ void FileHandler::startProgram(Mode mode)
 	switch (mode)
 	{
 	case NONE:
-		std::cout << "Invalid parameters\n";
+		UserInterface::invalidInputParameters();
 		break;
 	case ENCODE:
 		huffman = new HuffmanEncoding(inputFilePath, outputFilePath, dictionaryPath);

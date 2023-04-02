@@ -1,9 +1,9 @@
 # Huffman coding program 
 
 ## Description
-A program for encoding and then decoding files such as: txt, bmp, png, mp3, mp4 and other similar files. 
-The program uses the Huffman method for this. After the encoding operation it generates the dictionary file (that is later used for decoding)
-and encoded file in binary format. To decode an encoded file, enter the encoded file and the previously generated dictionary on the program input.
+A program for encoding and then decoding files such as: txt, bmp, png, mp3, mp4 and other similar files by using Huffman coding method.
+After the encoding operation it generates the dictionary file (that is later used for decoding) and encoded file in binary format. 
+To decode an encoded file, enter the encoded file and the previously generated dictionary on the program input.
 
 ##
 
